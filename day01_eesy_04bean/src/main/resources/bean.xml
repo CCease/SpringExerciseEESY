@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--Let spring manage the creation of object.-->
+
+    <!--spring对bean的管理细节 - Creation
+        1.创建bean的三种方式
+        2.bean对象的作用范围
+        3.bean对象的生命周期
+    -->
+
+    <!-- First way of creating bean, default way
+         Use bean tag aid with id and class, and without any other attirbute,
+         then is default way.
+         如果类中没有默认构造函数(dafault constructor -> classname())，则对象无法创建。
+
+         <bean id="accountService" class="com.itheima.service.impl.AccountServiceImpl"></bean>
+    -->
+
+    <!--Second way of creating bean, 使用其他类中的方法创建对象并存入spring容器。
+    <bean id="instanceFactory” class="com.itheima.factory.instanceFactory"></bean>
+    <bean id="accountService" factory-bean="instanceFactory" factory-method="getAccountService></bean>
+    -->
+
+    <!--Third way of creating bean, use a static method inside a specific class
+        and save to spring container
+
+    <bean id="accountService" class="com.itheima.factory.StaticFactory" factory-method="getAccountService"></bean>
+    -->
+
+    <!--Spring对bean的管理细节 - Scope （用于Bean标签里）
+        Scope - 用于指定bean的作用范围
+        1. singleton - single instance 单例 , default
+        2. prototype - Multiuple Instance 多例
+        3. request - 作用于web应用的请求范围
+        4. session - 作用与web应用的会话范围
+        5. global-session - 作用集群环境的会话范围，不是集群环境时，就是seesion。集群环境=多台服务器+负载均衡
+
+     eg.<bean id="accountService" class="com.itheima.service.impl.AccountServiceImpl" scope="prototype"></bean>
+    -->
+
+
+</beans>

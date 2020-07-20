@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--Dependency Injection 依赖注入
+
+        When we need object from other class,spring can provide us with that,
+        we just need to specify it in the configuration file. This is DI.
+
+        3 types of resource can be inject:
+        1.基本类型 and String
+        2.Other bean (Which we already configure in the configuration file)
+        3.复杂类型/集合类型 （list, map, etc...)
+
+        3 Ways of Injection
+        1. Constructor
+        2. Setter
+        3. Annotation injection
+    -->
+
+    <!-- Construtor Way
+
+        tag = constructor-arg (low level of bean)
+
+        attribute of constructor-arg:
+        1. type : Type of the constructor parameter
+                  (can't be use if more then 1 parameter have the same type)
+        2. index: Index of the constructor parameter ( start from 0 )
+        3. name : Name of the parameter                                        常用
+        =================================Above =====================================
+        4. value: Direct value of the parameter
+        5. ref  : Reference to other bean, 在spring的IOC容器中出现过的bean对象
+
+        Pros:
+            如果注入数据是必须的，不注入完无法成功。
+        Cons:
+            如果我们用不到其中的几个函数，我们也必须提供共
+    -->
+
+    <bean id="accountService" class="com.itheima.service.impl.AccountServiceImpl">
+        <constructor-arg name="example1" value="string"></constructor-arg>
+        <constructor-arg name="example2" value="15"></constructor-arg>
+        <constructor-arg name="example3" ref="date"></constructor-arg>
+    </bean>
+
+
+    <bean id="date" class="java.util.Date">
+        <constructor-arg name="date" value="14"></constructor-arg>
+    </bean>
+
+
+    <!--Setter Way 常用
+        tag : propertu
+        place: lower level of bean tag
+        attribute:
+            name  : name of the set (setAASDAS , name = aASDAS)
+            value : direct value of the parameter
+            ref   : reference to other bean
+
+        Pros:
+            可以直接使用默认constructor
+
+        Cons:
+            如果有某个方法必须有值，则获取对象有可能set方法没有执行
+     -->
+
+    <bean id="accountService2" class="com.itheima.service.impl.AccountServiceImpl2">
+        <property name="example1" value="string"></property>
+        <property name="example2" value="15"></property>
+        <property name="example3" ref="date"></property>
+    </bean>
+
+    <!-- list,array and set can change their tag (list,array,tag)
+         props and map can chenge their tag (props,map)
+     -->
+    <bean id="accountService3" class="com.itheima.service.impl.AccountServiceImpl3">
+        <property name="array">
+            <array>
+                <value>111</value>
+                <value>Second Value</value>
+                <value>Third Value</value>
+            </array>
+        </property>
+        <property name="list">
+            <list>
+                <value>testing1</value>
+                <value>testing2</value>
+                <value>testing3</value>
+            </list>
+        </property>
+        <property name="set">
+            <set>
+                <value>onetest</value>
+                <value>twotest</value>
+                <value>threetest</value>
+            </set>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="1" value="one"></entry>
+                <entry key="2" value="two"></entry>
+                <entry key="3">
+                    <value>three</value>
+                </entry>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="one">1</prop>
+                <prop key="two">2</prop>
+                <prop key="three">3</prop>
+            </props>
+        </property>
+    </bean>
+
+
+</beans>
